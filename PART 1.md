@@ -54,76 +54,91 @@ After collecting the data, we will send it using routes, which direct individual
 
 ## Initial Setup
 
-1. Start by getting your Raspberry Pi’s situated. I’d recommend utilizing [Raspberry Pi Imager](https://www.raspberrypi.com/software/) 
-    
+1. Begin by setting up your Raspberry Pi devices. I recommend using the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
+
     ![RPOS_Imaging](https://github.com/user-attachments/assets/4c6d194b-1855-406d-b4bd-91ae363c793e)
 
-    1. I’d recommend giving them distinct hostnames for fewer headaches later (I have set one of the hostnames as "NodeLab" for this demonstration)
-    3. Be sure to install OpenSSH so you can access the command line via tools like PuTTY or MobaXterm
-2. Update and Install Packages 
-    1. apt-get update
-3. Install [Docker](https://docs.docker.com/engine/install/debian/)
-4. Install [Portainer](https://docs.portainer.io/start/install-ce/server/docker/linux) 
-    1. It is not required but I highly recommend utilizing Portainer for an added graphical layer to managing your containers
-5. (Repeat for the other Raspberry Pi if utilizing a second)
-6. **Important Miscellaneous**
+   - Assign distinct hostnames to each device to avoid confusion later. For this demonstration, I have named one of the hostnames "NodeLab."
+   - Make sure to install OpenSSH so you can access the command line with tools like PuTTY or MobaXterm.
 
-   1. We need a `cribl` user with chown and sudo permissions
-      - **NOTE: NEVER RUN CRIBL AS THE ROOT USER**
+2. Update and Install Packages:
+   - Run the following command to update your package list:
+     ```bash
+     sudo apt-get update
+     ```
 
-   2. Create a Cribl user
-      - ```bash
-        sudo adduser cribl
-        ```
+3. Install [Docker](https://docs.docker.com/engine/install/debian/).
 
-   3. Give Cribl user sudo permissions
-      - ```bash
-        usermod -aG sudo cribl
-        ```
+4. Install [Portainer](https://docs.portainer.io/start/install-ce/server/docker/linux):
+   - While this step is not mandatory, I highly recommend using Portainer for an enhanced graphical interface to manage your containers.
 
-   4. Verify your architecture (Raspberry Pi’s are ARM based)
-      - ```bash
-        uname -m
-        ```
-        ![image 1](https://github.com/user-attachments/assets/50dfcdf1-730e-464d-a30f-009c3f2697da)
+5. (Repeat these steps for any additional Raspberry Pi devices you may be using.)
 
-7. Navigate to **cd /opt (we will be installing our Cribl Leader instance here)**
-8. Visit https://cribl.io/download/ (We are downloading the Edge and Stream suite)
-    
+6. **Important Miscellaneous Steps:**
+
+   1. Create a `cribl` user with `chown` and `sudo` permissions.
+      - **NOTE: NEVER RUN CRIBL AS THE ROOT USER.**
+   
+   2. Create the Cribl user:
+      ```bash
+      sudo adduser cribl
+      ```
+
+   3. Grant the Cribl user sudo permissions:
+      ```bash
+      sudo usermod -aG sudo cribl
+      ```
+
+   4. Verify your architecture (Raspberry Pis are ARM-based):
+      ```bash
+      uname -m
+      ```
+      ![image 1](https://github.com/user-attachments/assets/50dfcdf1-730e-464d-a30f-009c3f2697da)
+
+7. Navigate to the installation directory:
+   ```bash
+   cd /opt  # We will install our Cribl Leader instance here.
+   ```
+
+8. Visit https://cribl.io/download/ to download the Edge and Stream suite.
+
    ![image 2](https://github.com/user-attachments/assets/15f40cff-123d-4903-b916-aa625c5886ad)
 
-    1. **Download and extract Cribl for ARM64 (as we verified earlier)**
-   ```bash
-   curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
-   ```
-9. **Give our Cribl user chown privileges**
+   1. **Download and extract Cribl for ARM64 (as confirmed earlier):**
+      ```bash
+      curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
+      ```
+
+9. **Assign ownership of the Cribl directory to the Cribl user:**
    ```bash
    sudo chown -R cribl:cribl /opt/cribl
    ```
 
-10. **Configure systemd to manage the Cribl service**
+10. **Configure systemd to manage the Cribl service:**
     ```bash
     /opt/cribl/bin/cribl boot-start enable -u cribl
     ```
 
-11. **Start and verify that the Cribl service is running**
-    - Start the service:
+11. **Start and verify that the Cribl service is running:**
+    - To start the service:
       ```bash
       sudo systemctl start cribl
       ```
-    - Verify the service status:
+    - To check the service status:
       ```bash
       sudo systemctl status -l cribl
       ```
 
-12. **Verify that Cribl is listening on port 9000**
+12. **Verify that Cribl is listening on port 9000:**
     ```bash
     ss -tulpn
     ```
-14. Navigate to your Cribl Leader @ **http//:<leader_ip>:9000** 
-    1. default user = admin
-    2. default password = admin
-    3. add an email to the license agreement and accept the terms
+
+13. Navigate to your Cribl Leader at **http://<leader_ip>:9000**:
+    1. Default username: `admin`
+    2. Default password: `admin`
+    3. Add your email address to the license agreement and accept the terms.
+
 
 ## Installing a Worker Node
 
