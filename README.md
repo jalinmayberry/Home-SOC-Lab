@@ -71,7 +71,7 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
     3. Give Cribl user sudo permissions
         1. **`usermod -aG sudo cribl`**
     4. Verify your architecture (Rasperry Pi’s are ARM based)
-        1.   `**uname -m**`   
+        1.   `uname -m`   
             
             ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/0e5c95a4-97b0-43f2-9775-6df948be948a/image.png)
             
@@ -87,10 +87,10 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
 10. Configure systemd to manage the Cribl service
     1. **`/opt/cribl/bin/cribl boot-start enable -u cribl`**
 11. Start and verify that the Cribl service is running 
-    1.     `systemctl start cribl`   
-    2.     `systemctl status -l cribl`    
+    1.     systemctl start cribl   
+    2.     systemctl status -l cribl    
 12. Verify that Cribl is listening on port 9000
-    1.     `ss -tulpn`    
+    1.     ss -tulpn    
 13. Navigate to your Cribl Leader @ **http//:<leader_ip>:9000** 
     1. default user = admin
     2. default password = admin
