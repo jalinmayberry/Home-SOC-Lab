@@ -10,31 +10,29 @@ It has been a year since my last blog post. During this time, I focused on deepe
 
 Let’s start with the hardware at the focal point of my home SOC.
 
-- **Ubiquiti UniFi Dream Machine Pro**
-    - Every home lab needs a foundation, starting with the network to support it. However, you are free to use a firewall of your choice.
-- **2 x Raspberry Pi 5’s**
-    - I’ll note that I purchased 2 intending to run home automation daemons on one and additional test nodes/labs on the other…that was until I started playing with Docker **(more on that later)**.
-- **Windows 10/11 Machine**
-    - You can be a bit modular here too. However, the example drawn here will be utilizing a Windows 10 machine. I’d recommend it to get some experience with the procedure since you might often see a mixture of Windows & NIX environments in the real world.
-    - I’m also utilizing my Windows 10 machine to run Splunk on Docker
+- **Ubiquiti UniFi Dream Machine Pro**: Every home lab needs a solid foundation, starting with the network to support it. However, you are free to use a firewall of your choice.
 
-Now let’s overview the techstacks we will be using today to create our home SOC.
+- **2 x Raspberry Pi 5s**: I purchased two of these with the intention of running home automation daemons on one and additional test nodes/labs on the other. That was until I started experimenting with Docker *(more on that later)*.
 
-- **Docker**
-    - What is Docker and why this instead of a VM?
-        - Docker is a platform as a service product (PaaS) that uses OS-level virtualization to deliver software in packages called ‘**containers’**
-        - They have a few advantages over using VMs (which are in no way a bad way to deploy aspects of this environment too)
-            - Scalability: they are lightweight and and can be deployed very quickly
-            - Efficient: they are less resource-intensive more resource-efficient
-- **Splunk**
-    - The SIEM of choice for the backbone of this lab but if you believe you will ingest more than 500 MB of data, you can elect to use an open-source alternative like Wazuh.
-- **Cribl**
-    - The star of this deployment. It has a lot of really useful capabilities:
-        - Scalable with vertical and horizontal distribution in mind. Manage a plethora of nodes to handle data collection, optimization, and forwarding all from a single pane of glass.
-        - Data agnostic which means you can collect and send your data to any suitable destination (AWS S3, Azure BLOB, Splunk, etc)
-        - Data optimization utilizing unique pipelines thus reducing/filtering excess log content (overall reduction in ingest cost)
-        - Data obfuscation by filtering the data before it ever touches destination systems (filtering early with an emphasis on early)
-        - *Will replace the need for Splunk forwarder agents (more on that later)*
+- **Windows 10/11 Machine**: You can be a bit flexible here, but the example I’ll use will be based on a Windows 10 machine. I recommend this setup for gaining experience with procedures, as you'll often encounter a mix of Windows and UNIX environments in the real world. I am also using my Windows 10 machine to run Splunk on Docker.
+
+Now let’s review the tech stack we will be using today to create our home SOC.
+
+- **Docker**: What is Docker, and why choose it over a virtual machine (VM)?
+  - Docker is a platform as a service (PaaS) that uses OS-level virtualization to deliver software packaged in units called **containers**.
+  - Containers have several advantages over VMs (though VMs can also effectively serve parts of this environment):
+    - **Scalability**: Containers are lightweight and can be deployed very quickly.
+    - **Efficiency**: They are less resource-intensive and more efficient.
+   
+- **Splunk**: This is the SIEM of choice for the backbone of this lab. If you anticipate ingesting more than 500 MB of data, you might consider using an open-source alternative like Wazuh.
+
+- **Cribl**: The star of this deployment, Cribl offers numerous useful capabilities:
+  - It is designed for scalability, supporting both vertical and horizontal distribution. Manage multiple nodes to handle data collection, optimization, and forwarding—all from a single interface.
+  - It is data agnostic, allowing you to collect and send data to various destinations (e.g., AWS S3, Azure BLOB, Splunk).
+  - It provides data optimization through unique pipelines, which reduces and filters excess log content, leading to lower ingestion costs.
+  - It facilitates data obfuscation by filtering data before it reaches destination systems (early filtering is emphasized).
+  - **It will replace the need for Splunk forwarder agents** *(more on that later)*.
+
 
 **Here is a Visual of the Environment**
 
