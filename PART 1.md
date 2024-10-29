@@ -377,7 +377,7 @@ Cribl Edge, as we overviewed earlier, behaves much like a forwarder. We will be 
 1. Navigate to Cribl Edge > Fleets > More > Sources
 2. Select Windows Event Logs 
     
-![image 26](https://github.com/user-attachments/assets/23314a5d-7b0f-429e-939c-d3edfe937ca4)
+![image 26](https://github.com/user-attachments/assets/70b3d151-d35b-4d43-9379-03b98433007f)
 
 3. There will be an Input ID “in_win_event_logs” that we need to enable
 
@@ -407,7 +407,7 @@ Now we will set up Cribl TCP as a destination which will allow us to forward the
 
 2. Select Cribl TCP
     
-    ![image 32](https://github.com/user-attachments/assets/d4ac29c1-a7c9-41e7-a88b-c34515bf4618)
+    ![image 32](https://github.com/user-attachments/assets/e7eb829a-9e52-4abb-847a-49551f6fdde4)
 
 3. Copy these configurations 
     1. Persistent Queue is used to minimize data loss in case of receiver disturbance 
