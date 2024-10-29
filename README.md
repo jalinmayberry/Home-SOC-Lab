@@ -6,7 +6,7 @@
 
 ## INTRO
 
-It has been a year since I last posted a blog. I spent a lot of time delving deeper into Splunk and Cribl as I made my footing on our SIEM team at CDW. Allow me to set the stage for the tools we will be using in this write-up along with a brief intro for what they do!
+It has been a year since my last blog post. During this time, I focused on deepening my understanding of Splunk and Cribl as I established my role within the SIEM team at CDW. In this write-up, I will provide an overview of the tools we will be using, along with a brief introduction to their functions.
 
 Let’s start with the hardware at the focal point of my home SOC.
 
@@ -86,9 +86,10 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
    ![image 2](https://github.com/user-attachments/assets/15f40cff-123d-4903-b916-aa625c5886ad)
 
     1. curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
-9. Give our Cribl user chown privileges 
+9. Give our Cribl user chown privileges
+        
     1. `chown -R cribl:cribl /opt/cribl`
-10. Configure systemd to manage the Cribl service
+11. Configure systemd to manage the Cribl service
     1. `/opt/cribl/bin/cribl boot-start enable -u cribl`
 12. Start and verify that the Cribl service is running 
     1.     systemctl start cribl   
