@@ -13,10 +13,10 @@ Let’s start with the hardware at the focal point of my home SOC.
 - **Ubiquiti UniFi Dream Machine Pro**
     - Every home lab needs a foundation, starting with the network to support it. However, you are free to use a firewall of your choice.
 - **2 x Raspberry Pi 5’s**
-    - I’ll note that I purchased 2 intending to run home automation daemons on one and additional test nodes/labs on the other…that was until I started playing with **Docker (more on that later)**.
+    - I’ll note that I purchased 2 intending to run home automation daemons on one and additional test nodes/labs on the other…that was until I started playing with Docker **(more on that later)**.
 - **Windows 10/11 Machine**
     - You can be a bit modular here too. However, the example drawn here will be utilizing a Windows 10 machine. I’d recommend it to get some experience with the procedure since you might often see a mixture of Windows & NIX environments in the real world.
-    - I’m also utilizing my Windows 10 machine to run Splunk on Docker (there it is again!)
+    - I’m also utilizing my Windows 10 machine to run Splunk on Docker
 
 Now let’s overview the techstacks we will be using today to create our home SOC.
 
@@ -40,7 +40,7 @@ Now let’s overview the techstacks we will be using today to create our home SO
 
 ![image](https://github.com/user-attachments/assets/48631073-b2d5-4760-b631-949ad95f24a3)
 
-Since Cribl is the main focus of the lab, we will dive deeper into just what this diagram is speaking.
+Since Cribl is the main focus of the lab, we will dive deeper into just what this diagram is saying.
 
 Cribl has a few main system separate functions but we will focus on the 2 relevant to the deployment:
 
@@ -162,7 +162,7 @@ A prerequisite we can start with is setting up ICMP communication between your R
 5. Select ICMPv4
 6. on the Scope step
     1. you can leave the local IP address to “Any IP address”
-    2. set remote IP address to “These addresses” and input the address of your Raspberry Pi
+    2. set the remote IP address to “These addresses” and input the address of your Raspberry Pi
 7. Allow the connection
 8. Set Profile to “Private” only
     
@@ -219,7 +219,7 @@ Now that our worker node is prepped to capture syslog data, we must forward it f
         ```
         
     3. **Enable TCP or UDP Syslog Forwarding**:
-    Uncomment (remove `#`) the following lines to enable TCP or UDP syslog reception. Use the appropriate protocol depending on your setup.
+    To enable TCP or UDP syslog reception, uncomment (remove `#`) the following lines. Depending on your setup, use the appropriate protocol.
         - For UDP:
             
             ```
@@ -371,7 +371,7 @@ Cribl Edge, as we overviewed earlier, behaves much like a forwarder. We will be 
 1. Connected Destinations > Send to Routes 
 2. Save/Commit & Deploy
 3. Navigate back to the input
-    1. Under the “Status” tab, you should see your Windows host and event logs populated this table
+    1. Under the “Status” tab, you should see your Windows host and event logs populated in this table
 
 ![image 30](https://github.com/user-attachments/assets/ba6dbe00-0bb6-44de-a51a-527a3c354b45)
 
