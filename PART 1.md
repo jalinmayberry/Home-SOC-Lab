@@ -142,94 +142,96 @@ After collecting the data, we will send it using routes, which direct individual
 
 ## Installing a Worker Node
 
-We will use the Worker node as the focal point of collecting our source logs. Ideally, the Worker node would be on another host so we will use the other Raspberry Pi we setup earlier. 
+The Worker node will be the central point for collecting our source logs. Ideally, it should be on a separate host, so we will use another Raspberry Pi that we set up earlier.
 
-1. Within Stream, navigate to the Workers tab
+1. In Stream, navigate to the **Workers** tab.
     
     ![image 3](https://github.com/user-attachments/assets/aecedd82-d3fa-4aac-b99c-c595ad7569c0)
     
-2. Click on “Add/Update Worker Node”
+2. Click on **Add/Update Worker Node**.
     
     ![image 4](https://github.com/user-attachments/assets/8681d395-3b11-4d9e-93a9-b0ed47b0e6e5)
 
-3. I utilized Docker to deploy my Worker node so feel free to follow along since we installed Docker earlier. The bootstrap script will populate to the right of your configuration tabs.
-    1. An aspect of this script will need some further editing. I found that by default, all ports are closed unless specified during the run script.
-        1. `-p 9000:9000` opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping Worker nodes from an on-prem Leader node.
-        2. More context on ports can be found [here](https://docs.cribl.io/stream/ports/)
+3. I deployed my Worker node using Docker, so feel free to follow along since we installed Docker earlier. The bootstrap script will populate to the right of your configuration tabs.
+   
+    1. This script requires some editing. By default, all ports are closed unless specified during the run script.
+        - Use `-p 9000:9000` to open port 9000 for both the container and the host. This port is used for the Cribl UI and for bootstrapping Worker nodes from an on-prem Leader node.
+        - More context on ports can be found [here](https://docs.cribl.io/stream/ports/).
         
-       ![image 5](https://github.com/user-attachments/assets/a28bdaec-aa68-40f9-9379-c4fa7b898bd1)
+        ![image 5](https://github.com/user-attachments/assets/a28bdaec-aa68-40f9-9379-c4fa7b898bd1)
 
-    2. you can open the rest of the necessary ports via additional -p <port:port> args in your script, or you can use my Portainer method. 
-4. After you’ve deployed the script on your Raspberry Pi, you should see your Worker node populate the list 
+    2. You can open additional necessary ports by adding more `-p <port:port>` arguments in your script, or you can follow my Portainer method. 
 
-![image 6](https://github.com/user-attachments/assets/96944189-c474-45cc-9334-04a2912f70e0)
+4. After deploying the script on your Raspberry Pi, you should see your Worker node appear in the list.
 
-1. Now, before we do anything further, hop over to Portainer on the machine you deployed your Worker node via https://<host_ip>:9443 
-    1. don’t worry about the certificate error (if you see one) for now.
+    ![image 6](https://github.com/user-attachments/assets/96944189-c474-45cc-9334-04a2912f70e0)
+
+5. Before proceeding further, go to Portainer on the machine where you deployed your Worker node by visiting https://<host_ip>:9443.
+   
+    1. Don't worry about the certificate error (if you see one) for now.
     
-  ![image 7](https://github.com/user-attachments/assets/3a09179b-ab18-40f0-b325-da5dce2a1466)
+    ![image 7](https://github.com/user-attachments/assets/3a09179b-ab18-40f0-b325-da5dce2a1466)
 
-2. Portainer is the graphical method of managing your docker containers and what we can do here is open additional ports pretty quickly and redeploy the Worker image.
-    1. navigate to “cribl-worker” or whatever you named your container in the original bootstrap script.
-    2. click on “Duplicate/Edit” 
-        1. Here we will see port mapping options. Syslog standardizes on 514 for conventional systems but I have elected to use non-standard/non-privileged ports. If your source supports it, I’d recommend opening a custom port to avoid interfering with other sources and reduce the need for pre-processing data blobs. 
-    3. click on “Map additional port” and toggle TCP or UDP for each one. TCP is more reliable while UDP is faster.
-        1. *14 = Syslog
-        2. 8088 = Splunk HTTP Event Collector (HEC) 
-        3. 9000 = Cribl UI & bootstrapping Worker nodes
-        4. 10300 = Cribl TCP which is toggled by default in the Cribl TCP destination configuration window but you can choose another port as well. 
-    4. click on “Deploy the container” to redeploy the Worker node.
+6. Portainer is a graphical interface for managing your Docker containers, allowing you to quickly open additional ports and redeploy the Worker image.
+   
+    1. Navigate to **cribl-worker** (or whatever you named your container in the original bootstrap script).
+    2. Click on **Duplicate/Edit**. 
+        - This will show you the port mapping options. Syslog standardizes on port 514 for conventional systems, but I recommend using non-standard, non-privileged ports. If your source supports it, opt for a custom port to avoid interfering with other sources and reduce the need for pre-processing data blobs. 
+    3. Click on **Map additional port** and toggle between TCP or UDP for each one. TCP is more reliable, while UDP is faster.
+        - **14** = Syslog
+        - **8088** = Splunk HTTP Event Collector (HEC) 
+        - **9000** = Cribl UI & bootstrapping Worker nodes
+        - **10300** = Cribl TCP (typically toggled by default in the Cribl TCP destination configuration window, but you can choose another port as well). 
+    4. Click on **Deploy the container** to redeploy the Worker node.
 
-![image 8](https://github.com/user-attachments/assets/a1b51ecd-38d1-492b-abfd-64836162922b)
+    ![image 8](https://github.com/user-attachments/assets/a1b51ecd-38d1-492b-abfd-64836162922b)
 
-Now you’re ready to install Cribl Edge!
+You are now ready to install Cribl Edge!
 
 ## Installing Cribl Edge on a Windows 10 Machine
 
-A prerequisite we can start with is setting up ICMP communication between your Raspberry Pi and the Windows Machine
+First, set up ICMP communication between your Raspberry Pi and the Windows machine:
 
-1. On your Windows Machine, navigate to “Windows Defender Firewall with Advanced Security”
-2. Inbound Rules > New Rule
-    
+1. On your Windows machine, open **Windows Defender Firewall with Advanced Security**.
+2. Go to **Inbound Rules > New Rule**.
+   
     ![image 9](https://github.com/user-attachments/assets/24be5602-8e9a-4ad2-940b-b1d3b83a6ac7)
 
-3. Select “Custom”
+3. Select **Custom**.
     
     ![image 10](https://github.com/user-attachments/assets/05dafbfe-fa72-4323-a441-310e95b87c01)
     
-4. Select “All programs”
-5. Select ICMPv4
-6. on the Scope step
-    1. you can leave the local IP address to “Any IP address”
-    2. set the remote IP address to “These addresses” and input the address of your Raspberry Pi
-7. Allow the connection
-8. Set Profile to “Private” only
+4. Choose **All programs**.
+5. Select **ICMPv4**.
+6. In the **Scope** step:
+    1. Leave the local IP address as **Any IP address**.
+    2. Set the remote IP address to **These addresses** and input the address of your Raspberry Pi.
+7. Allow the connection.
+8. Set the Profile to **Private** only.
     
     ![image 11](https://github.com/user-attachments/assets/ee070d6d-b61d-49a9-a821-cc1b9e767f58)
     
-9. Give it a name and click “Finish”
+9. Give the rule a name and click **Finish**.
 
-This ensures your Windows machine can accept inbound pings from the Raspberry Pi.
+This ensures that your Windows machine can accept inbound pings from the Raspberry Pi.
 
-1. Head back to your Cribl UI and navigate to Cribl Edge > Fleets 
+1. Return to your Cribl UI and navigate to **Cribl Edge > Fleets**.
 
-![image 12](https://github.com/user-attachments/assets/453cddab-6aec-46f7-8ef5-b6e1045dcb11)
+    ![image 12](https://github.com/user-attachments/assets/453cddab-6aec-46f7-8ef5-b6e1045dcb11)
 
-1. Add/Update Edge Node > Windows > Update 
+2. Choose **Add/Update Edge Node > Windows > Update**.
     
-![image 13](https://github.com/user-attachments/assets/9865e316-0044-4e12-b54c-59de1f6659f1)
+    ![image 13](https://github.com/user-attachments/assets/9865e316-0044-4e12-b54c-59de1f6659f1)
+    
+3. Open **Windows PowerShell** as an administrator and paste the bootstrap script into PowerShell. You can also use the [install wizard](https://docs.cribl.io/edge/deploy-windows/).
+   
+4. You should see a **Cribl** folder populate in **C:\Program Files**.
 
-2. Open Windows PowerShell as administrator and copy the bootstrap script into PowerShell
-    1. You can also use the [install wizard](https://docs.cribl.io/edge/deploy-windows/)
-3. You should see a “Cribl” folder populate in C:\Program Files
+    ![image 14](https://github.com/user-attachments/assets/54c5892a-17b5-4d1a-8758-3c04269ed5ba)
 
-![image 14](https://github.com/user-attachments/assets/54c5892a-17b5-4d1a-8758-3c04269ed5ba)
+5. Finally, navigate back to the Cribl UI to view the node in your fleet.
 
-1. You can then navigate back to the Cribl UI to view the node in your fleet
-
- ![image 32](https://github.com/user-attachments/assets/2fc1d803-21fc-4198-8da5-09533e1cfede)
-
----
+    ![image 32](https://github.com/user-attachments/assets/2fc1d803-21fc-4198-8da5-09533e1cfede)
 
 # CONFIGURATIONS
 
