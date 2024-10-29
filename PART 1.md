@@ -319,119 +319,115 @@ Now that our Worker node is set up to capture syslog data, we need to forward it
 
 Now that the Pi server is forwarding logs to our destination (where the Cribl Worker is hosted), we will configure Cribl to capture these logs.
 
-1. Log into your Cribl UI
-2. Navigate to “Worker Groups > Data > Sources > Syslog
+1. Log into your Cribl UI.
+2. Navigate to **Worker Groups > Data > Sources > Syslog**.
 
-![image 17](https://github.com/user-attachments/assets/66a4aafc-23d7-47e4-b4cc-b8bb2830b0c4)
+   ![image 17](https://github.com/user-attachments/assets/66a4aafc-23d7-47e4-b4cc-b8bb2830b0c4)
 
-1. Click Add Source 
-    1. give your source an “Input ID” like ‘NodeLab_Syslog’
-    2. Leave “Address” set to ‘0.0.0.0’ 
-    3. set your port in TCP or UDP to the port you configured in rsyslog.conf
-    4. navigate to “Fields” 
-        1. name = index
-        2. value = ‘home_soc_syslog’ or a value of your choice
-            1. we will create this index in Splunk later
-        
-      ![image 18](https://github.com/user-attachments/assets/78e44ba9-5761-4536-98ee-fb01c22c1f2b)
+3. Click **Add Source**.
+   - Enter an “Input ID” such as ‘NodeLab_Syslog’.
+   - Keep the “Address” set to ‘0.0.0.0’.
+   - Set your port in TCP or UDP to the port specified in `rsyslog.conf`.
+4. Navigate to **Fields**:
+   - Name: `index`
+   - Value: ‘home_soc_syslog’ or another value of your choice. This index will be created in Splunk later.
 
-2. Navigate to “Connected Destinations” 
-    1. I prefer “Send to Routes” so I will present this method for our routing examples.
-3. Click Save 
-4. We will also need to Commit & Deploy these changes 
-    1. It is best practice to write a quick, but detailed description of any changes you commit
-    2. You will need to do these each time you make source, destination, etc changes
+   ![image 18](https://github.com/user-attachments/assets/78e44ba9-5761-4536-98ee-fb01c22c1f2b)
 
-![image 19](https://github.com/user-attachments/assets/6e638e95-105d-4190-92c7-58950dc63a82)
+5. Navigate to **Connected Destinations**:
+   - I prefer using **Send to Routes**, so I will demonstrate this method for our routing examples.
+6. Click **Save**.
+7. We also need to **Commit & Deploy** these changes:
+   - It’s best practice to write a brief yet detailed description of any changes you commit.
+   - You will need to do this each time you make changes to sources, destinations, etc.
 
-7. Click “Commit & Deploy”
+   ![image 19](https://github.com/user-attachments/assets/6e638e95-105d-4190-92c7-58950dc63a82)
 
-![image 20](https://github.com/user-attachments/assets/ccf55f45-a6d5-4754-bfcd-29e497e91333)
+8. Click **Commit & Deploy**.
 
-1. Navigate to Routing > Data Routes
-2. Click “Add Route” 
-3. Configure the following 
+   ![image 20](https://github.com/user-attachments/assets/ccf55f45-a6d5-4754-bfcd-29e497e91333)
 
-![image 21](https://github.com/user-attachments/assets/15476cc2-f8a4-4b97-abcb-7ab985d9e287)
+9. Navigate to **Routing > Data Routes**.
+10. Click **Add Route**.
+11. Configure the following:
 
-1.  Make sure the default route is moved underneath our new test route and save the changes
-    1. Commit & Deploy
-2. Click the “…” on our new route and select “Capture”
+    ![image 21](https://github.com/user-attachments/assets/15476cc2-f8a4-4b97-abcb-7ab985d9e287)
 
-![image 22](https://github.com/user-attachments/assets/e9b1cd06-2589-4717-9e89-f0dc483063ef)
+12. Ensure the default route is moved underneath our new test route and save the changes:
+    - Commit & Deploy.
+13. Click the “…” on our new route and select **Capture**.
 
-1. Make sure the following filter expression is present
+    ![image 22](https://github.com/user-attachments/assets/e9b1cd06-2589-4717-9e89-f0dc483063ef)
 
-![image 23](https://github.com/user-attachments/assets/8570d76e-3ea6-42c7-aa7a-97a1a743a14c)
+14. Ensure the following filter expression is present:
 
-1. Click “Capture” and use the following settings before clicking “Start”
-    1. this is where we will test that our Syslog data is being captured by Cribl
-        
-![image 24](https://github.com/user-attachments/assets/c1616faa-4ecc-4ab5-bedf-082e3179472a)
+    ![image 23](https://github.com/user-attachments/assets/8570d76e-3ea6-42c7-aa7a-97a1a743a14c)
 
-2. Once you start the capture, go back to your Pi server command line and emit another logger query 
-    1. logger "This is a test log from Raspberry Pi."
-    2. this will populate the live capture with your test log!
+15. Click **Capture** and use the following settings before clicking **Start**:
+    - This is where we will test that our Syslog data is being captured by Cribl.
 
-![image 25](https://github.com/user-attachments/assets/37af438e-1b24-43f5-b95f-9fd1c4c14f3e)
+    ![image 24](https://github.com/user-attachments/assets/c1616faa-4ecc-4ab5-bedf-082e3179472a)
 
-Wonderful! We have one more data collection setup task to complete which is configuring Cribl Edge to collect Windows Event logs on our Windows machine. 
+16. Once the capture starts, return to your Pi server's command line and issue another logger command:
+    - `logger "This is a test log from Raspberry Pi."`
+    - This will populate the live capture with your test log!
+
+    ![image 25](https://github.com/user-attachments/assets/37af438e-1b24-43f5-b95f-9fd1c4c14f3e)
+
+Wonderful! We have one more data collection setup task to complete: configuring Cribl Edge to collect Windows Event logs on our Windows machine.
 
 ## Configuring Cribl Edge to Collect Windows Events
 
-Cribl Edge, as we overviewed earlier, behaves much like a forwarder. We will be setting up a Windows Event Collector (WEC) to forward event logs from Edge to Stream. 
+As we discussed earlier, Cribl Edge functions similarly to a forwarder. We will set up a Windows Event Collector (WEC) to forward event logs from Edge to Stream.
 
-1. Navigate to Cribl Edge > Fleets > More > Sources
-2. Select Windows Event Logs 
-    
-![image 26](https://github.com/user-attachments/assets/70b3d151-d35b-4d43-9379-03b98433007f)
+1. Navigate to **Cribl Edge > Fleets > More > Sources**.
+2. Select **Windows Event Logs**.
 
-3. There will be an Input ID “in_win_event_logs” that we need to enable
+   ![image 26](https://github.com/user-attachments/assets/70b3d151-d35b-4d43-9379-03b98433007f)
 
-![image 27](https://github.com/user-attachments/assets/bcd619c9-8955-4870-9aef-ad63c7e2209c)
+3. Enable the Input ID “in_win_event_logs”.
 
-1. Click on the input and match the configurations
-    1. We will be monitoring System, Security, and Application logs
+   ![image 27](https://github.com/user-attachments/assets/bcd619c9-8955-4870-9aef-ad63c7e2209c)
 
-![image 28](https://github.com/user-attachments/assets/d5a56cd5-c938-4638-8758-233938ccde72)
+4. Click on the input and adjust the configurations:
+   - We will monitor System, Security, and Application logs.
 
-1. Navigate to Advanced Settings and ensure “Use Windows Tools” is toggled
+   ![image 28](https://github.com/user-attachments/assets/d5a56cd5-c938-4638-8758-233938ccde72)
 
-![image 29](https://github.com/user-attachments/assets/42181a24-5397-42e9-9f9e-b0872e37a38a)
+5. Navigate to **Advanced Settings** and verify that “Use Windows Tools” is toggled on.
+6. Under **Connected Destinations**, choose **Send to Routes**.
+7. Save and Commit & Deploy.
+8. Return to the input:
+   - Under the **Status** tab, you should see your Windows host and event logs listed in this table.
 
-1. Connected Destinations > Send to Routes 
-2. Save/Commit & Deploy
-3. Navigate back to the input
-    1. Under the “Status” tab, you should see your Windows host and event logs populated in this table
+   ![image 30](https://github.com/user-attachments/assets/ba6dbe00-0bb6-44de-a51a-527a3c354b45)
 
-![image 30](https://github.com/user-attachments/assets/ba6dbe00-0bb6-44de-a51a-527a3c354b45)
+Now, we will set up Cribl TCP as a destination, allowing us to forward these logs to Cribl Stream.
 
-Now we will set up Cribl TCP as a destination which will allow us to forward these logs to Cribl Stream
+1. Navigate to **More > Destinations**.
 
-1. Navigate to More > Destinations
-    
-    ![image 31](https://github.com/user-attachments/assets/b2fd3a04-d145-431e-baf6-e2b9d0acbcea)
+   ![image 31](https://github.com/user-attachments/assets/b2fd3a04-d145-431e-baf6-e2b9d0acbcea)
 
-2. Select Cribl TCP
-    
-    ![image 32](https://github.com/user-attachments/assets/e7eb829a-9e52-4abb-847a-49551f6fdde4)
+2. Select **Cribl TCP**.
 
-3. Copy these configurations 
-    1. Persistent Queue is used to minimize data loss in case of receiver disturbance 
-    2. We set up Docker to listen on port 10300 earlier so use it or another port if you configured otherwise
+   ![image 32](https://github.com/user-attachments/assets/e7eb829a-9e52-4abb-847a-49551f6fdde4)
 
-![image 33](https://github.com/user-attachments/assets/ae6eae58-6206-4574-a9d0-ae98842707e5)
+3. Copy these configurations:
+   - A **Persistent Queue** is used to minimize data loss in case of receiver disturbances.
+   - We set up Docker to listen on port 10300 earlier, so use it or another port if configured otherwise.
 
-![image 34](https://github.com/user-attachments/assets/c17a38fa-65f9-4bd7-8db2-a3215da2dd87)
+   ![image 33](https://github.com/user-attachments/assets/ae6eae58-6206-4574-a9d0-ae98842707e5)
 
-1. Save/Commit & Deploy
+   ![image 34](https://github.com/user-attachments/assets/c17a38fa-65f9-4bd7-8db2-a3215da2dd87)
 
-Now we will navigate back to Stream to set up the Cribl TCP input.
+4. Save and Commit & Deploy.
 
-1. Products > Stream > Worker Groups > Data > Sources
-2. Scroll down to find “Cribl TCP”
-    
-    ![image 35](https://github.com/user-attachments/assets/8632e5ac-7b5c-4b74-a4c2-1221dfeb8172)
+Next, we'll navigate back to Stream to set up the Cribl TCP input.
+
+1. Go to **Products > Stream > Worker Groups > Data > Sources**.
+2. Scroll down to find **Cribl TCP**.
+
+   ![image 35](https://github.com/user-attachments/assets/8632e5ac-7b5c-4b74-a4c2-1221dfeb8172)
 
 3. Add Source (if there isn’t already an Input ID of “in_cribl_tcp” present)
     1. copy the following configuration settings
