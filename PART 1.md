@@ -38,16 +38,17 @@ Now let’s review the tech stack we will be using today to create our home SOC.
 
 ![image](https://github.com/user-attachments/assets/48631073-b2d5-4760-b631-949ad95f24a3)
 
-Since Cribl is the main focus of the lab, we will dive deeper into just what this diagram is saying.
+Since Cribl is the main focus of the lab, we will take a closer look at what this diagram illustrates.
 
-Cribl has a few main system separate functions but we will focus on the 2 relevant to the deployment:
+Cribl has several key system functions, but we will focus on two relevant to the deployment:
 
-- Cribl Stream
-    - Cribl Stream can help collect, reduce, enrich, transform, and route data from Cribl Edge to any destination.
-- Cribl Edge
-    - Similar to Splunk Universal Forwarders, these agents are lightweight data collectors with a twist. Edge nodes have Stream functionality that allows you to search and capture data at rest, well…at the Edge.
+- **Cribl Stream:** This component helps collect, reduce, enrich, transform, and route data from Cribl Edge to any destination.
+  
+- **Cribl Edge:** Similar to Splunk Universal Forwarders, these agents are lightweight data collectors with an added twist. Edge nodes have Stream functionality that allows you to search and capture data at rest, effectively operating "at the Edge."
 
-We will be collecting syslog data from 3 sources and Windows Event logs from another. The syslog data will be collected from what are called worker nodes. You can think of worker nodes as frontline doers. The Windows machine requires a different collection method (as worker nodes are not supported on Windows) via an Edge node. We will then send this data using routes, which tell individual streams of data where to go (destinations) and whether or not they will be processed beforehand using packs, which are a bundle of pipelines that filter, enrich, and or normalize the data (i.e turning XML into JSON or correcting timestamps).
+We will collect syslog data from three sources and Windows Event logs from another source. The syslog data will be gathered from what are known as worker nodes, which can be thought of as the frontline doers. For the Windows machine, however, we will use a different collection method, as worker nodes are not supported on Windows. Instead, we will utilize an Edge node.
+
+After collecting the data, we will send it using routes, which direct individual streams of data to their respective destinations. Additionally, we can determine whether the data will be processed beforehand using packs, which are bundles of pipelines designed to filter, enrich, or normalize the data (for example, converting XML into JSON or correcting timestamps).
 
 # INSTALLATIONS
 
@@ -134,24 +135,24 @@ We will use the worker node as the focal point of collecting our source logs. Id
     
 2. Click on “Add/Update Worker Node”
     
-    ![image 4](https://github.com/user-attachments/assets/10e5605e-64ec-4d60-8e61-f1b2b269899f)
+    ![image 4](https://github.com/user-attachments/assets/8681d395-3b11-4d9e-93a9-b0ed47b0e6e5)
 
 3. I utilized Docker to deploy my worker node so feel free to follow along since we installed docker earlier. The bootstrap script will populate to the right of your configuration tabs.
     1. An aspect of this script will need some further editing. I found that by default, all ports are closed unless specified during the run script.
         1. `-p 9000:9000` opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping worker nodes from an on-prem leader node.
         2. More context on ports can be found [here](https://docs.cribl.io/stream/ports/)
         
-        ![image 5](https://github.com/user-attachments/assets/aef6b48f-14e2-4a10-9546-1c648e5dfd81)
+       ![image 5](https://github.com/user-attachments/assets/a28bdaec-aa68-40f9-9379-c4fa7b898bd1)
 
     2. you can open the rest of the necessary ports via additional -p <port:port> args in your script, or you can use my Portainer method. 
 4. After you’ve deployed the script on your Raspberry Pi, you should see your worker node populate the list 
 
-![image 6](https://github.com/user-attachments/assets/464797ee-e024-4167-9b3f-827da95ea8c8)
+![image 6](https://github.com/user-attachments/assets/96944189-c474-45cc-9334-04a2912f70e0)
 
 1. Now, before we do anything further, hop over to Portainer on the machine you deployed your worker node via https://<host_ip>:9443 
     1. don’t worry about the certificate error (if you see one) for now.
     
-   ![image 7](https://github.com/user-attachments/assets/075b9fe0-35db-4daa-aa90-96aca77bcbde)
+  ![image 7](https://github.com/user-attachments/assets/3a09179b-ab18-40f0-b325-da5dce2a1466)
 
 2. Portainer is the graphical method of managing your docker containers and what we can do here is open additional ports pretty quickly and redeploy the worker image.
     1. navigate to “cribl-worker” or whatever you named your container in the original bootstrap script.
@@ -201,7 +202,7 @@ This ensures your Windows machine can accept inbound pings from the Raspberry Pi
 
 1. Add/Update Edge Node > Windows > Update 
     
-![image 13](https://github.com/user-attachments/assets/5a4d274a-d4cf-40cb-85c3-4d3c907a4c0f)
+![image 13](https://github.com/user-attachments/assets/9865e316-0044-4e12-b54c-59de1f6659f1)
 
 2. Open Windows PowerShell as administrator and copy the bootstrap script into PowerShell
     1. You can also use the [install wizard](https://docs.cribl.io/edge/deploy-windows/)
@@ -211,7 +212,7 @@ This ensures your Windows machine can accept inbound pings from the Raspberry Pi
 
 1. You can then navigate back to the Cribl UI to view the node in your fleet
 
- ![image 15](https://github.com/user-attachments/assets/7411d374-93c6-4310-9165-441538bd5b55)
+ ![image 15](https://github.com/user-attachments/assets/54d4f4f7-1d2d-43a9-a152-ddad00039ce5)
 
 ---
 
@@ -437,9 +438,9 @@ Now we will navigate back to Stream to set up the Cribl TCP input.
 
 View the “Status” and “Live Data” tabs of the source and you should see event logs populating.
 
-![image 37](https://github.com/user-attachments/assets/1e82aec0-b2b7-46e7-8280-143f66e59aa2)
+![image 37](https://github.com/user-attachments/assets/177728a8-6ee6-4619-bb6b-bffb9cfdb8c9)
 
-You have officially deployed the start of your very own SOC homelab!
+You have officially deployed the beginning of your very own SOC homelab!
 
 # CONCLUSION
 
