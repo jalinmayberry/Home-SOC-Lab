@@ -67,25 +67,36 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
 4. Install [Portainer](https://docs.portainer.io/start/install-ce/server/docker/linux) 
     1. It is not required but I highly recommend utilizing Portainer for an added graphical layer to managing your containers
 5. (Repeat for the other Raspberry Pi if utilizing a second)
-6. Important Miscellaneous 
-    1. We need a ‘cribl’ user with chown and sudo permissions
-        1. NEVER MAKE INSTALL OR MAKE CHANGES TO CRIBL AS THE ROOT USER
-    2. Create a Cribl user
-        1. **`sudo adduser cribl`** 
-    3. Give Cribl user sudo permissions
-        1. **`usermod -aG sudo cribl`**
-    4. Verify your architecture (Rasperry Pi’s are ARM based)
-        1.   `uname -m`   
-            
-              ![image 1](https://github.com/user-attachments/assets/bab36f88-7a0d-4ce6-9d58-93d474333b0a)
+6. **Important Miscellaneous**
 
-        2. aarch64 = ARM
+   1. We need a `cribl` user with chown and sudo permissions
+      - **NOTE: NEVER RUN CRIBL AS THE ROOT USER**
+
+   2. Create a Cribl user
+      - ```bash
+        sudo adduser cribl
+        ```
+
+   3. Give Cribl user sudo permissions
+      - ```bash
+        usermod -aG sudo cribl
+        ```
+
+   4. Verify your architecture (Raspberry Pi’s are ARM based)
+      - ```bash
+        uname -m
+        ```
+        ![image 1](https://github.com/user-attachments/assets/50dfcdf1-730e-464d-a30f-009c3f2697da)
+
 7. Navigate to **cd /opt (we will be installing our Cribl Leader instance here)**
 8. Visit https://cribl.io/download/ (We are downloading the Edge and Stream suite)
     
    ![image 2](https://github.com/user-attachments/assets/15f40cff-123d-4903-b916-aa625c5886ad)
 
-    1. curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
+    1. **Download and extract Cribl for ARM64 (as we verified earlier)**
+   ```bash
+   curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
+   ```
 9. **Give our Cribl user chown privileges**
    ```bash
    sudo chown -R cribl:cribl /opt/cribl
@@ -134,7 +145,7 @@ We will use the worker node as the focal point of collecting our source logs. Id
         
         ![image 5](https://github.com/user-attachments/assets/aef6b48f-14e2-4a10-9546-1c648e5dfd81)
 
-    2. you can open the rest of the necessary ports via additional -p <port>:<port> args in your script, or you can use my Portainer method. 
+    2. you can open the rest of the necessary ports via additional -p <port:port> args in your script, or you can use my Portainer method. 
 4. After you’ve deployed the script on your Raspberry Pi, you should see your worker node populate the list 
 
 ![image 6](https://github.com/user-attachments/assets/464797ee-e024-4167-9b3f-827da95ea8c8)
