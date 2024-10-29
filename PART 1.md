@@ -231,98 +231,88 @@ This ensures that your Windows machine can accept inbound pings from the Raspber
 
 5. Finally, navigate back to the Cribl UI to view the node in your fleet.
 
-    ![image 32](https://github.com/user-attachments/assets/2fc1d803-21fc-4198-8da5-09533e1cfede)
+    ![image 15](https://github.com/user-attachments/assets/19a63f2a-4a8c-4b57-a91c-ff6f23a786f8)
 
 # CONFIGURATIONS
 
-## Configuring the Raspberry Pi’s to Forward Syslog
+## Configuring Raspberry Pi to Forward Syslog
 
-Now that our Worker node is prepped to capture syslog data, we must forward it from our Pi servers.
+Now that our Worker node is set up to capture syslog data, we need to forward it from our Raspberry Pi servers.
 
-1. Navigate to your Leader Node machine’s command line
-2. We will use rsyslog to forward our syslog data to the Worker node machine.
-    1. **Install `rsyslog` (if not already installed)**:
-        
-        ```bash
-        
-        sudo apt update
-        sudo apt install rsyslog -y
-        
-        ```
-        
-    2. **Edit the `rsyslog` configuration file**:
-    Open the main `rsyslog` configuration file with a text editor.
-        
-        ```bash
-        
-        sudo nano /etc/rsyslog.conf
-        
-        ```
-        
-    3. **Enable TCP or UDP Syslog Forwarding**:
-    To enable TCP or UDP syslog reception, uncomment (remove `#`) the following lines. Depending on your setup, use the appropriate protocol.
-        - For UDP:
-            
-            ```
-            
-            module(load="imudp")
-            input(type="imudp" port="<port for syslog")
-            
-            ```
-            
-        - For TCP:
-            
-            ```
-            
-            module(load="imtcp")
-            input(type="imtcp" port="<port for syslog>")
-            
-            ```
-            
-    4. **Set Up the Forwarding Rule**:
-    At the end of the configuration file, add a rule to forward all logs (`.*`) to your Cribl Worker node IP address and port (change `<Worker-node-ip>` and `<port>` to match your setup):
-        
-        ```
-        
-        *.* action(type="omfwd" target="<dest_ip>" port="10514" protocol="tcp") #For TCP
-        *.* action(type="omfwd" target="<dest_ip>" port="10514" protocol="udp") #For UDP
-        ```
-        
-    5. **Save and Exit**:
-    Save your changes and exit the editor. In Nano, press `Ctrl+O` to save, and `Ctrl+X` to exit.
-    6. **Restart `rsyslog` to Apply Changes**:
-        
-        ```bash
-        
-        sudo systemctl restart rsyslog
-        ```
-        
-    7. **Verify Configuration**:
-    Check the `rsyslog` status to ensure there are no errors:
-        
-        ```bash
-        
-        sudo systemctl status rsyslog
-        ```
-        
-    8. **Testing the Setup** (Optional):
-    Use the `logger` command to generate a test log message:
-        
-        ```bash
-        
-        logger "This is a test log from Raspberry Pi."
-        ```
-        
-    9. Verify that the log is received on the Cribl Worker node.
-        
-        ```bash
-        
-        sudo tail /var/log/syslog
-        ```
-        
-    10. You should now see the message populate the log file!
-        
-   ![image 16](https://github.com/user-attachments/assets/7af56f8e-c72e-48b5-a26a-85847f83c71b)
+1. **Access the Command Line on Your Leader Node Machine**
+   
+2. **Use `rsyslog` to Forward Syslog Data to the Worker Node**:
+   
+   a. **Install `rsyslog` (if not already installed)**:
+   
+   ```bash
+   sudo apt update
+   sudo apt install rsyslog -y
+   ```
+   
+   b. **Edit the `rsyslog` Configuration File**:
+   Open the main `rsyslog` configuration file using a text editor:
+   
+   ```bash
+   sudo nano /etc/rsyslog.conf
+   ```
+   
+   c. **Enable TCP or UDP Syslog Forwarding**:
+   Depending on your setup, uncomment (remove `#`) the appropriate lines for TCP or UDP syslog reception:
+   
+   - For UDP:
+   ```
+   module(load="imudp")
+   input(type="imudp" port="<udp_port_for_syslog>")
+   ```
+   
+   - For TCP:
+   ```
+   module(load="imtcp")
+   input(type="imtcp" port="<tcp_port_for_syslog>")
+   ```
+   
+   d. **Set Up the Forwarding Rule**:
+   At the end of the configuration file, add a rule to forward all logs (`.*`) to your Cribl Worker node's IP address and port (replace `<Worker-node-ip>` and `<port>` with appropriate values):
+   
+   ```
+   *.* action(type="omfwd" target="<Worker-node-ip>" port="<port>" protocol="tcp") # For TCP
+   *.* action(type="omfwd" target="<Worker-node-ip>" port="<port>" protocol="udp") # For UDP
+   ```
+   
+   e. **Save and Exit**:
+   Save your changes and exit the editor. In Nano, press `Ctrl+O` to save and `Ctrl+X` to exit.
+   
+   f. **Restart `rsyslog` to Apply Changes**:
+   
+   ```bash
+   sudo systemctl restart rsyslog
+   ```
+   
+   g. **Verify Configuration**:
+   Check the status of `rsyslog` to ensure there are no errors:
+   
+   ```bash
+   sudo systemctl status rsyslog
+   ```
+   
+   h. **Testing the Setup (Optional)**:
+   Use the `logger` command to generate a test log message:
+   
+   ```bash
+   logger "This is a test log from Raspberry Pi."
+   ```
+   
+   i. **Verify the Log is Received**:
+   Check the log on the Cribl Worker node to ensure the log message has been received:
+   
+   ```bash
+   sudo tail /var/log/syslog
+   ```
+   
+   j. You should see the test message appear in the log file!
+
+![image 16](https://github.com/user-attachments/assets/7af56f8e-c72e-48b5-a26a-85847f83c71b)
      
     
 ## Configuring Cribl to Capture Syslog
