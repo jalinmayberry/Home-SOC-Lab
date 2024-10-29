@@ -86,16 +86,30 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
    ![image 2](https://github.com/user-attachments/assets/15f40cff-123d-4903-b916-aa625c5886ad)
 
     1. curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
-9. Give our Cribl user chown privileges
-        
-    1. `chown -R cribl:cribl /opt/cribl`
-11. Configure systemd to manage the Cribl service
-    1. `/opt/cribl/bin/cribl boot-start enable -u cribl`
-12. Start and verify that the Cribl service is running 
-    1.     systemctl start cribl   
-    2.     systemctl status -l cribl    
-13. Verify that Cribl is listening on port 9000
-    1.     ss -tulpn    
+9. **Give our Cribl user chown privileges**
+   ```bash
+   sudo chown -R cribl:cribl /opt/cribl
+   ```
+
+10. **Configure systemd to manage the Cribl service**
+    ```bash
+    /opt/cribl/bin/cribl boot-start enable -u cribl
+    ```
+
+11. **Start and verify that the Cribl service is running**
+    - Start the service:
+      ```bash
+      sudo systemctl start cribl
+      ```
+    - Verify the service status:
+      ```bash
+      sudo systemctl status -l cribl
+      ```
+
+12. **Verify that Cribl is listening on port 9000**
+    ```bash
+    ss -tulpn
+    ```
 14. Navigate to your Cribl Leader @ **http//:<leader_ip>:9000** 
     1. default user = admin
     2. default password = admin
@@ -115,7 +129,7 @@ We will use the worker node as the focal point of collecting our source logs. Id
 
 3. I utilized Docker to deploy my worker node so feel free to follow along since we installed docker earlier. The bootstrap script will populate to the right of your configuration tabs.
     1. An aspect of this script will need some further editing. I found that by default, all ports are closed unless specified during the run script.
-        1. -p 9000:9000 opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping worker nodes from an on-prem leader node.
+        1. `-p 9000:9000` opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping worker nodes from an on-prem leader node.
         2. More context on ports can be found [here](https://docs.cribl.io/stream/ports/)
         
         ![image 5](https://github.com/user-attachments/assets/aef6b48f-14e2-4a10-9546-1c648e5dfd81)
