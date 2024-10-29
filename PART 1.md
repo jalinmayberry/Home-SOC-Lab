@@ -58,8 +58,8 @@ After collecting the data, we will send it using routes, which direct individual
     
     ![RPOS_Imaging](https://github.com/user-attachments/assets/4c6d194b-1855-406d-b4bd-91ae363c793e)
 
-    1. I’d recommend giving them distinct hostnames for fewer headaches later
-    2. Be sure to install OpenSSH so you can access the command line via tools like PuTTY or MobaXterm
+    1. I’d recommend giving them distinct hostnames for fewer headaches later (I have set one of the hostnames as "NodeLab" for this demonstration)
+    3. Be sure to install OpenSSH so you can access the command line via tools like PuTTY or MobaXterm
 2. Update and Install Packages 
     1. apt-get update
 3. Install [Docker](https://docs.docker.com/engine/install/debian/)
