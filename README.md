@@ -53,8 +53,8 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
 
 1. Start by getting your Raspberry Pi’s situated. I’d recommend utilizing [Raspberry Pi Imager](https://www.raspberrypi.com/software/) 
     
-    ![RPOS Imaging.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/d773c365-b3f8-4c2b-90b8-a3d89fc606c6/RPOS_Imaging.jpg)
-    
+    ![RPOS_Imaging](https://github.com/user-attachments/assets/4c6d194b-1855-406d-b4bd-91ae363c793e)
+
     1. I’d recommend giving them distinct hostnames for fewer headaches later
     2. Be sure to install OpenSSH so you can access the command line via tools like PuTTY or MobaXterm
 2. Update and Install Packages 
@@ -73,14 +73,14 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
     4. Verify your architecture (Rasperry Pi’s are ARM based)
         1.   `uname -m`   
             
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/0e5c95a4-97b0-43f2-9775-6df948be948a/image.png)
-            
+            ![image 1](https://github.com/user-attachments/assets/676eb185-0a46-45a6-b499-7b3e455c465b)
+
         2. aarch64 = ARM
 7. Navigate to **cd /opt (we will be installing our Cribl Leader instance here)**
 8. Visit https://cribl.io/download/ (We are downloading the Edge and Stream suite)
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/0f0b7026-0deb-42db-ba1f-d59207840641/image.png)
-    
+   ![image 2](https://github.com/user-attachments/assets/15f40cff-123d-4903-b916-aa625c5886ad)
+
     1. curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
 9. Give our Cribl user chown privileges 
     1. **`chown -R cribl:cribl /opt/cribl`**
@@ -102,29 +102,29 @@ We will use the worker node as the focal point of collecting our source logs. Id
 
 1. Within Stream, navigate to the Workers tab
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/a0f451ca-0e87-4b26-850c-87974ff46887/image.png)
+    ![image 3](https://github.com/user-attachments/assets/aecedd82-d3fa-4aac-b99c-c595ad7569c0)
     
 2. Click on “Add/Update Worker Node”
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/87b1910d-07be-464d-9573-a9f9c7d79f5a/image.png)
-    
+    ![image 4](https://github.com/user-attachments/assets/10e5605e-64ec-4d60-8e61-f1b2b269899f)
+
 3. I utilized Docker to deploy my worker node so feel free to follow along since we installed docker earlier. The bootstrap script will populate to the right of your configuration tabs.
     1. An aspect of this script will need some further editing. I found that by default, all ports are closed unless specified during the run script.
         1. -p 9000:9000 opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping worker nodes from an on-prem leader node.
         2. More context on ports can be found [here](https://docs.cribl.io/stream/ports/)
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/4f5218a3-5c90-48a2-8dab-b4517d1f9227/image.png)
-        
+        ![image 5](https://github.com/user-attachments/assets/aef6b48f-14e2-4a10-9546-1c648e5dfd81)
+
     2. you can open the rest of the necessary ports via additional -p <port>:<port> args in your script, or you can use my Portainer method. 
 4. After you’ve deployed the script on your Raspberry Pi, you should see your worker node populate the list 
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/a78ee992-c982-4765-9406-09d07cc75733/image.png)
+![image 6](https://github.com/user-attachments/assets/464797ee-e024-4167-9b3f-827da95ea8c8)
 
 1. Now, before we do anything further, hop over to Portainer on the machine you deployed your worker node via https://<host_ip>:9443 
     1. don’t worry about the certificate error (if you see one) for now.
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/c1952abd-7a21-407f-9628-abad6e28b530/image.png)
-    
+   ![image 7](https://github.com/user-attachments/assets/075b9fe0-35db-4daa-aa90-96aca77bcbde)
+
 2. Portainer is the graphical method of managing your docker containers and what we can do here is open additional ports pretty quickly and redeploy the worker image.
     1. navigate to “cribl-worker” or whatever you named your container in the original bootstrap script.
     2. click on “Duplicate/Edit” 
@@ -136,7 +136,7 @@ We will use the worker node as the focal point of collecting our source logs. Id
         4. 10300 = Cribl TCP which is toggled by default in the Cribl TCP destination configuration window but you can choose another port as well. 
     4. click on “Deploy the container” to redeploy the worker node.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/5d7ff455-2263-454e-a9d5-157eedf06012/image.png)
+![image 8](https://github.com/user-attachments/assets/a1b51ecd-38d1-492b-abfd-64836162922b)
 
 Now you’re ready to install Cribl Edge!
 
@@ -147,11 +147,11 @@ A prerequisite we can start with is setting up ICMP communication between your R
 1. On your Windows Machine, navigate to “Windows Defender Firewall with Advanced Security”
 2. Inbound Rules > New Rule
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/6f65ab23-db97-431f-ae4d-e55e8868c929/image.png)
-    
+    ![image 9](https://github.com/user-attachments/assets/24be5602-8e9a-4ad2-940b-b1d3b83a6ac7)
+
 3. Select “Custom”
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/7b96987c-80bf-4bbc-aa36-2141ab23fc47/image.png)
+    ![image 10](https://github.com/user-attachments/assets/05dafbfe-fa72-4323-a441-310e95b87c01)
     
 4. Select “All programs”
 5. Select ICMPv4
@@ -161,7 +161,7 @@ A prerequisite we can start with is setting up ICMP communication between your R
 7. Allow the connection
 8. Set Profile to “Private” only
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/29288128-ec2d-4e5f-9a65-e61e84132991/image.png)
+    ![image 11](https://github.com/user-attachments/assets/ee070d6d-b61d-49a9-a821-cc1b9e767f58)
     
 9. Give it a name and click “Finish”
 
@@ -169,21 +169,21 @@ This ensures your Windows machine can accept inbound pings from the Raspberry Pi
 
 1. Head back to your Cribl UI and navigate to Cribl Edge > Fleets 
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/58839fe6-6d82-400c-a9b6-67af76799c16/image.png)
+![image 12](https://github.com/user-attachments/assets/453cddab-6aec-46f7-8ef5-b6e1045dcb11)
 
 1. Add/Update Edge Node > Windows > Update 
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/8a440542-c8ae-4cef-ae61-eb1a2359eb4e/image.png)
-    
+![image 13](https://github.com/user-attachments/assets/5a4d274a-d4cf-40cb-85c3-4d3c907a4c0f)
+
 2. Open Windows PowerShell as administrator and copy the bootstrap script into PowerShell
     1. You can also use the [install wizard](https://docs.cribl.io/edge/deploy-windows/)
 3. You should see a “Cribl” folder populate in C:\Program Files
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/f218e324-d574-4bdb-b3f6-83b0141bc967/image.png)
+![image 14](https://github.com/user-attachments/assets/54c5892a-17b5-4d1a-8758-3c04269ed5ba)
 
 1. You can then navigate back to the Cribl UI to view the node in your fleet
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/ccf70583-e47f-460a-85e9-0baa34c8d45c/image.png)
+ ![image 15](https://github.com/user-attachments/assets/7411d374-93c6-4310-9165-441538bd5b55)
 
 ---
 
@@ -276,10 +276,9 @@ Now that our worker node is prepped to capture syslog data, we must forward it f
         
     10. You should now see the message populate the log file!
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/d114ede4-2bd5-4c3b-88b1-e82722cc35f2/image.png)
-        
+   ![image 16](https://github.com/user-attachments/assets/7af56f8e-c72e-48b5-a26a-85847f83c71b)
+     
     
-
 ## Configuring Cribl to Capture Syslog
 
 Now that the Pi server is forwarding logs to our destination (where the Cribl worker is hosted), we will configure Cribl to capture these logs.
@@ -287,7 +286,7 @@ Now that the Pi server is forwarding logs to our destination (where the Cribl wo
 1. Log into your Cribl UI
 2. Navigate to “Worker Groups > Data > Sources > Syslog
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/65dab2f0-156a-4a30-8cc7-2574639d61a0/image.png)
+![image 17](https://github.com/user-attachments/assets/66a4aafc-23d7-47e4-b4cc-b8bb2830b0c4)
 
 1. Click Add Source 
     1. give your source an “Input ID” like ‘NodeLab_Syslog’
@@ -298,8 +297,8 @@ Now that the Pi server is forwarding logs to our destination (where the Cribl wo
         2. value = ‘home_soc_syslog’ or a value of your choice
             1. we will create this index in Splunk later
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/88e2421e-5eaa-4007-8659-fd078b41e40a/image.png)
-        
+      ![image 18](https://github.com/user-attachments/assets/78e44ba9-5761-4536-98ee-fb01c22c1f2b)
+
 2. Navigate to “Connected Destinations” 
     1. I prefer “Send to Routes” so I will present this method for our routing examples.
 3. Click Save 
@@ -307,38 +306,38 @@ Now that the Pi server is forwarding logs to our destination (where the Cribl wo
     1. It is best practice to write a quick, but detailed description of any changes you commit
     2. You will need to do these each time you make source, destination, etc changes
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/91a7c312-5616-4cf0-bfcc-4e54cd968f7a/image.png)
+![image 19](https://github.com/user-attachments/assets/6e638e95-105d-4190-92c7-58950dc63a82)
 
 7. Click “Commit & Deploy”
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/760f9000-8116-43a2-a7c6-1639df1cdeb4/image.png)
+![image 20](https://github.com/user-attachments/assets/ccf55f45-a6d5-4754-bfcd-29e497e91333)
 
 1. Navigate to Routing > Data Routes
 2. Click “Add Route” 
 3. Configure the following 
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/789d0c94-c58a-4b3d-97a6-5776efa86d93/image.png)
+![image 21](https://github.com/user-attachments/assets/15476cc2-f8a4-4b97-abcb-7ab985d9e287)
 
 1.  Make sure the default route is moved underneath our new test route and save the changes
     1. Commit & Deploy
 2. Click the “…” on our new route and select “Capture”
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/efb98d30-eeb9-45f0-a5ea-749f838e5c1a/image.png)
+![image 22](https://github.com/user-attachments/assets/e9b1cd06-2589-4717-9e89-f0dc483063ef)
 
 1. Make sure the following filter expression is present
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/5c44b7fc-17f4-4dbf-8349-11ec28343fdd/image.png)
+![image 23](https://github.com/user-attachments/assets/8570d76e-3ea6-42c7-aa7a-97a1a743a14c)
 
 1. Click “Capture” and use the following settings before clicking “Start”
     1. this is where we will test that our Syslog data is being captured by Cribl
         
-        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/e811c3fb-c31b-4631-96f0-18830783640f/image.png)
-        
+![image 24](https://github.com/user-attachments/assets/c1616faa-4ecc-4ab5-bedf-082e3179472a)
+
 2. Once you start the capture, go back to your Pi server command line and emit another logger query 
     1. logger "This is a test log from Raspberry Pi."
     2. this will populate the live capture with your test log!
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/1e07a8c6-750e-48f2-be04-4f8558a167ac/image.png)
+![image 25](https://github.com/user-attachments/assets/37af438e-1b24-43f5-b95f-9fd1c4c14f3e)
 
 Wonderful! We have one more data collection setup task to complete which is configuring Cribl Edge to collect Windows Event logs on our Windows machine. 
 
@@ -349,45 +348,45 @@ Cribl Edge, as we overviewed earlier, behaves much like a forwarder. We will be 
 1. Navigate to Cribl Edge > Fleets > More > Sources
 2. Select Windows Event Logs 
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/940871fd-ecff-423f-a4c4-602e87bb2a01/image.png)
-    
+![image 26](https://github.com/user-attachments/assets/23314a5d-7b0f-429e-939c-d3edfe937ca4)
+
 3. There will be an Input ID “in_win_event_logs” that we need to enable
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/40a1b3ff-f1e6-4d8c-bcf2-32195213488c/image.png)
+![image 27](https://github.com/user-attachments/assets/bcd619c9-8955-4870-9aef-ad63c7e2209c)
 
 1. Click on the input and match the configurations
     1. We will be monitoring System, Security, and Application logs
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/409d958d-5bed-438e-929c-110cfd66ed20/image.png)
+![image 28](https://github.com/user-attachments/assets/d5a56cd5-c938-4638-8758-233938ccde72)
 
 1. Navigate to Advanced Settings and ensure “Use Windows Tools” is toggled
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/e4f130dd-415c-4ed5-86e8-2de660a4627e/image.png)
+![image 29](https://github.com/user-attachments/assets/42181a24-5397-42e9-9f9e-b0872e37a38a)
 
 1. Connected Destinations > Send to Routes 
 2. Save/Commit & Deploy
 3. Navigate back to the input
     1. Under the “Status” tab, you should see your Windows host and event logs populated this table
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/f711b92f-fc42-415f-987e-dd9d6d86b56b/image.png)
+![image 30](https://github.com/user-attachments/assets/ba6dbe00-0bb6-44de-a51a-527a3c354b45)
 
 Now we will set up Cribl TCP as a destination which will allow us to forward these logs to Cribl Stream
 
 1. Navigate to More > Destinations
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/65771442-73c2-4cbf-8365-2d4929a1c8e3/image.png)
-    
+    ![image 31](https://github.com/user-attachments/assets/b2fd3a04-d145-431e-baf6-e2b9d0acbcea)
+
 2. Select Cribl TCP
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/2a533336-ca27-4116-b818-17b085f5540d/image.png)
-    
+    ![image 32](https://github.com/user-attachments/assets/d4ac29c1-a7c9-41e7-a88b-c34515bf4618)
+
 3. Copy these configurations 
     1. Persistent Queue is used to minimize data loss in case of receiver disturbance 
     2. We set up Docker to listen on port 10300 earlier so use it or another port if you configured otherwise
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/63119191-7f1b-472c-acb6-6e98a0a31e17/image.png)
+![image 33](https://github.com/user-attachments/assets/ae6eae58-6206-4574-a9d0-ae98842707e5)
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/c5f9d33b-fba0-425b-96ca-a49dc0b256ba/image.png)
+![image 34](https://github.com/user-attachments/assets/c17a38fa-65f9-4bd7-8db2-a3215da2dd87)
 
 1. Save/Commit & Deploy
 
@@ -396,21 +395,21 @@ Now we will navigate back to Stream to set up the Cribl TCP input.
 1. Products > Stream > Worker Groups > Data > Sources
 2. Scroll down to find “Cribl TCP”
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/8f069a66-f027-4e45-8ea5-3a7ed9b335e8/image.png)
-    
+    ![image 35](https://github.com/user-attachments/assets/8632e5ac-7b5c-4b74-a4c2-1221dfeb8172)
+
 3. Add Source (if there isn’t already an Input ID of “in_cribl_tcp” present)
     1. copy the following configuration settings
     2. Leave address set to 0.0.0.0
     3. set port to 10300
     4. Connected Destinations > Send to Routes 
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/462abeb1-cb72-4313-8d33-be5380982a7d/image.png)
-    
+    ![image 36](https://github.com/user-attachments/assets/09af2060-0ae6-42a5-8119-0d17d84ade8d)
+
 4. Save/Commit & Deploy
 
 View the “Status” and “Live Data” tabs of the source and you should see event logs populating.
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/8242ca9f-f618-40e7-b4a2-307348e12ff4/image.png)
+![image 37](https://github.com/user-attachments/assets/1e82aec0-b2b7-46e7-8280-143f66e59aa2)
 
 You have officially deployed the start of your very own SOC homelab!
 
