@@ -1,5 +1,7 @@
 # Cribl-Splunk-Home-SOC
 
+![image](https://github.com/user-attachments/assets/0b59ec23-f977-4a96-9b03-fb6ee5ab1fe6)
+
 ## INTRO
 
 It has been a year since I last posted a blog. I spent a lot of time delving deeper into Splunk and Cribl as I made my footing on our SIEM team at CDW. Allow me to set the stage for the tools we will be using in this write-up along with a brief intro for what they do!
