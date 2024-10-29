@@ -34,7 +34,7 @@ Now let’s overview the techstacks we will be using today to create our home SO
 
 **Here is a Visual of the Environment**
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/c50b480f-5501-4712-810c-1953ba81d366/9a296126-d907-465e-993c-639548dc45af/image.png)
+![image](https://github.com/user-attachments/assets/48631073-b2d5-4760-b631-949ad95f24a3)
 
 Since Cribl is the main focus of the lab, we will dive deeper into just what this diagram is speaking.
 
