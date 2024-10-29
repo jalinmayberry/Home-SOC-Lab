@@ -77,7 +77,7 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
     4. Verify your architecture (Rasperry Pi’s are ARM based)
         1.   `uname -m`   
             
-            ![image 1](https://github.com/user-attachments/assets/676eb185-0a46-45a6-b499-7b3e455c465b)
+              ![image 1](https://github.com/user-attachments/assets/bab36f88-7a0d-4ce6-9d58-93d474333b0a)
 
         2. aarch64 = ARM
 7. Navigate to **cd /opt (we will be installing our Cribl Leader instance here)**
@@ -87,9 +87,9 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
 
     1. curl -Lso - $(curl https://cdn.cribl.io/dl/latest-arm64) | tar zxv
 9. Give our Cribl user chown privileges 
-    1. **`chown -R cribl:cribl /opt/cribl`**
+    1. `chown -R cribl:cribl /opt/cribl`
 10. Configure systemd to manage the Cribl service
-    1. **`/opt/cribl/bin/cribl boot-start enable -u cribl`**
+    1. `/opt/cribl/bin/cribl boot-start enable -u cribl`
 12. Start and verify that the Cribl service is running 
     1.     systemctl start cribl   
     2.     systemctl status -l cribl    
