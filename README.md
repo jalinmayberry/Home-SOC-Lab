@@ -87,10 +87,10 @@ We will be collecting syslog data from 3 sources and Windows Event logs from ano
 10. Configure systemd to manage the Cribl service
     1. **`/opt/cribl/bin/cribl boot-start enable -u cribl`**
 11. Start and verify that the Cribl service is running 
-    1.     `**systemctl start cribl**`   
-    2.     `**systemctl status -l cribl**`    
+    1.     `systemctl start cribl`   
+    2.     `systemctl status -l cribl`    
 12. Verify that Cribl is listening on port 9000
-    1.     `**ss -tulpn**`    
+    1.     `ss -tulpn`    
 13. Navigate to your Cribl Leader @ **http//:<leader_ip>:9000** 
     1. default user = admin
     2. default password = admin
