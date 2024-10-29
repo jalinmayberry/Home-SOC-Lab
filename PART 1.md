@@ -36,7 +36,7 @@ Now let’s review the tech stack we will be using today to create our home SOC.
 
 **Here is a Visual of the Environment**
 
-![image](https://github.com/user-attachments/assets/48631073-b2d5-4760-b631-949ad95f24a3)
+![image](https://github.com/user-attachments/assets/565139f7-43d0-4f75-a0e8-1c2fa7a0b310)
 
 Since Cribl is the main focus of the lab, we will take a closer look at what this diagram illustrates.
 
