@@ -1,6 +1,6 @@
 # Cribl-Splunk-Home-SOC
 
-![image](https://github.com/user-attachments/assets/0b59ec23-f977-4a96-9b03-fb6ee5ab1fe6)
+![splunk](https://github.com/user-attachments/assets/c0cceab4-91c1-42fe-bd34-08157e3c61a5)
 
 ## INTRO
 
