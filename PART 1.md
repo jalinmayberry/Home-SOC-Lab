@@ -46,7 +46,7 @@ Cribl has several key system functions, but we will focus on two relevant to the
   
 - **Cribl Edge:** Similar to Splunk Universal Forwarders, these agents are lightweight data collectors with an added twist. Edge nodes have Stream functionality that allows you to search and capture data at rest, effectively operating "at the Edge."
 
-We will collect syslog data from three sources and Windows Event logs from another source. The syslog data will be gathered from what are known as worker nodes, which can be thought of as the frontline doers. For the Windows machine, however, we will use a different collection method, as worker nodes are not supported on Windows. Instead, we will utilize an Edge node.
+We will collect syslog data from three sources and Windows Event logs from another source. The syslog data will be gathered from what are known as Worker nodes, which can be thought of as the frontline doers. For the Windows machine, however, we will use a different collection method, as Worker nodes are not supported on Windows. Instead, we will utilize an Edge node.
 
 After collecting the data, we will send it using routes, which direct individual streams of data to their respective destinations. Additionally, we can determine whether the data will be processed beforehand using packs, which are bundles of pipelines designed to filter, enrich, or normalize the data (for example, converting XML into JSON or correcting timestamps).
 
@@ -127,7 +127,7 @@ After collecting the data, we will send it using routes, which direct individual
 
 ## Installing a Worker Node
 
-We will use the worker node as the focal point of collecting our source logs. Ideally, the worker node would be on another host so we will use the other Raspberry Pi we setup earlier. 
+We will use the Worker node as the focal point of collecting our source logs. Ideally, the Worker node would be on another host so we will use the other Raspberry Pi we setup earlier. 
 
 1. Within Stream, navigate to the Workers tab
     
@@ -137,33 +137,33 @@ We will use the worker node as the focal point of collecting our source logs. Id
     
     ![image 4](https://github.com/user-attachments/assets/8681d395-3b11-4d9e-93a9-b0ed47b0e6e5)
 
-3. I utilized Docker to deploy my worker node so feel free to follow along since we installed docker earlier. The bootstrap script will populate to the right of your configuration tabs.
+3. I utilized Docker to deploy my Worker node so feel free to follow along since we installed Docker earlier. The bootstrap script will populate to the right of your configuration tabs.
     1. An aspect of this script will need some further editing. I found that by default, all ports are closed unless specified during the run script.
-        1. `-p 9000:9000` opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping worker nodes from an on-prem leader node.
+        1. `-p 9000:9000` opens port 9000 for both the container and the host which is used for Cribl UI and bootstrapping Worker nodes from an on-prem Leader node.
         2. More context on ports can be found [here](https://docs.cribl.io/stream/ports/)
         
        ![image 5](https://github.com/user-attachments/assets/a28bdaec-aa68-40f9-9379-c4fa7b898bd1)
 
     2. you can open the rest of the necessary ports via additional -p <port:port> args in your script, or you can use my Portainer method. 
-4. After you’ve deployed the script on your Raspberry Pi, you should see your worker node populate the list 
+4. After you’ve deployed the script on your Raspberry Pi, you should see your Worker node populate the list 
 
 ![image 6](https://github.com/user-attachments/assets/96944189-c474-45cc-9334-04a2912f70e0)
 
-1. Now, before we do anything further, hop over to Portainer on the machine you deployed your worker node via https://<host_ip>:9443 
+1. Now, before we do anything further, hop over to Portainer on the machine you deployed your Worker node via https://<host_ip>:9443 
     1. don’t worry about the certificate error (if you see one) for now.
     
   ![image 7](https://github.com/user-attachments/assets/3a09179b-ab18-40f0-b325-da5dce2a1466)
 
-2. Portainer is the graphical method of managing your docker containers and what we can do here is open additional ports pretty quickly and redeploy the worker image.
+2. Portainer is the graphical method of managing your docker containers and what we can do here is open additional ports pretty quickly and redeploy the Worker image.
     1. navigate to “cribl-worker” or whatever you named your container in the original bootstrap script.
     2. click on “Duplicate/Edit” 
         1. Here we will see port mapping options. Syslog standardizes on 514 for conventional systems but I have elected to use non-standard/non-privileged ports. If your source supports it, I’d recommend opening a custom port to avoid interfering with other sources and reduce the need for pre-processing data blobs. 
     3. click on “Map additional port” and toggle TCP or UDP for each one. TCP is more reliable while UDP is faster.
         1. *14 = Syslog
         2. 8088 = Splunk HTTP Event Collector (HEC) 
-        3. 9000 = Cribl UI & bootstrapping worker nodes
+        3. 9000 = Cribl UI & bootstrapping Worker nodes
         4. 10300 = Cribl TCP which is toggled by default in the Cribl TCP destination configuration window but you can choose another port as well. 
-    4. click on “Deploy the container” to redeploy the worker node.
+    4. click on “Deploy the container” to redeploy the Worker node.
 
 ![image 8](https://github.com/user-attachments/assets/a1b51ecd-38d1-492b-abfd-64836162922b)
 
@@ -220,10 +220,10 @@ This ensures your Windows machine can accept inbound pings from the Raspberry Pi
 
 ## Configuring the Raspberry Pi’s to Forward Syslog
 
-Now that our worker node is prepped to capture syslog data, we must forward it from our Pi servers.
+Now that our Worker node is prepped to capture syslog data, we must forward it from our Pi servers.
 
 1. Navigate to your Leader Node machine’s command line
-2. We will use rsyslog to forward our syslog data to the worker node machine.
+2. We will use rsyslog to forward our syslog data to the Worker node machine.
     1. **Install `rsyslog` (if not already installed)**:
         
         ```bash
@@ -263,7 +263,7 @@ Now that our worker node is prepped to capture syslog data, we must forward it f
             ```
             
     4. **Set Up the Forwarding Rule**:
-    At the end of the configuration file, add a rule to forward all logs (`.*`) to your Cribl worker node IP address and port (change `<worker-node-ip>` and `<port>` to match your setup):
+    At the end of the configuration file, add a rule to forward all logs (`.*`) to your Cribl Worker node IP address and port (change `<Worker-node-ip>` and `<port>` to match your setup):
         
         ```
         
@@ -296,7 +296,7 @@ Now that our worker node is prepped to capture syslog data, we must forward it f
         logger "This is a test log from Raspberry Pi."
         ```
         
-    9. Verify that the log is received on the Cribl worker node.
+    9. Verify that the log is received on the Cribl Worker node.
         
         ```bash
         
@@ -310,7 +310,7 @@ Now that our worker node is prepped to capture syslog data, we must forward it f
     
 ## Configuring Cribl to Capture Syslog
 
-Now that the Pi server is forwarding logs to our destination (where the Cribl worker is hosted), we will configure Cribl to capture these logs.
+Now that the Pi server is forwarding logs to our destination (where the Cribl Worker is hosted), we will configure Cribl to capture these logs.
 
 1. Log into your Cribl UI
 2. Navigate to “Worker Groups > Data > Sources > Syslog
