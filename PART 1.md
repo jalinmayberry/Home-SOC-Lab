@@ -212,7 +212,7 @@ This ensures your Windows machine can accept inbound pings from the Raspberry Pi
 
 1. You can then navigate back to the Cribl UI to view the node in your fleet
 
- ![image 15](https://github.com/user-attachments/assets/54d4f4f7-1d2d-43a9-a152-ddad00039ce5)
+ ![image 32](https://github.com/user-attachments/assets/2fc1d803-21fc-4198-8da5-09533e1cfede)
 
 ---
 
