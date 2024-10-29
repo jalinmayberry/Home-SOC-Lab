@@ -39,7 +39,7 @@ By implementing these destinations, we will complete our data pipeline, enabling
 ## Getting Started
 
 1. Follow the instructions in `Part 1` for the initial setup.
-2. Move to `Part 2` for configuring destinations and finalizing the data pipeline.
+2. Move to `Part 2` for configuring destinations and finalizing the data pipeline (Coming Soon).
 
 ## Future Enhancements
 
