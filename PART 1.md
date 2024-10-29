@@ -429,59 +429,59 @@ Next, we'll navigate back to Stream to set up the Cribl TCP input.
 
    ![image 35](https://github.com/user-attachments/assets/8632e5ac-7b5c-4b74-a4c2-1221dfeb8172)
 
-3. Add Source (if there isn’t already an Input ID of “in_cribl_tcp” present)
-    1. copy the following configuration settings
-    2. Leave address set to 0.0.0.0
-    3. set port to 10300
-    4. Connected Destinations > Send to Routes 
-    
-    ![image 36](https://github.com/user-attachments/assets/09af2060-0ae6-42a5-8119-0d17d84ade8d)
+3. **Add Source** (if there isn’t already an Input ID of “in_cribl_tcp” present)  
+   1. Copy the following configuration settings.  
+   2. Leave the address set to 0.0.0.0.  
+   3. Set the port to 10300.  
+   4. Under Connected Destinations, select "Send to Routes."  
+   
+   ![image 36](https://github.com/user-attachments/assets/09af2060-0ae6-42a5-8119-0d17d84ade8d)  
 
-4. Save/Commit & Deploy
+4. **Save/Commit & Deploy**  
 
-View the “Status” and “Live Data” tabs of the source and you should see event logs populating.
+Check the “Status” and “Live Data” tabs of the source; you should see event logs populating.  
 
-![image 37](https://github.com/user-attachments/assets/177728a8-6ee6-4619-bb6b-bffb9cfdb8c9)
+![image 37](https://github.com/user-attachments/assets/177728a8-6ee6-4619-bb6b-bffb9cfdb8c9)  
 
-You have officially deployed the beginning of your very own SOC homelab!
+Congratulations! You have officially deployed the beginning of your very own SOC homelab!
 
 # CONCLUSION
 
 ## Summary of Cribl Setup
 
-In this write-up, we've covered the essential steps to set up a robust data collection and processing pipeline using Cribl Stream and Edge. We've successfully:
+In this write-up, we've covered the essential steps to set up a robust data collection and processing pipeline using Cribl Stream and Edge. We have successfully:
 
-- Configured Raspberry Pi's as Cribl Leader and Worker nodes
-- Set up Cribl Edge on a Windows machine for collecting Windows Event logs
-- Configured syslog forwarding from various sources to Cribl
-- Established data routes and verified log capture in Cribl
+- Configured Raspberry Pis as Cribl Leader and Worker nodes.
+- Set up Cribl Edge on a Windows machine to collect Windows Event logs.
+- Configured syslog forwarding from various sources to Cribl.
+- Established data routes and verified log capture in Cribl.
 
 ## The Power of Cribl
 
 Through this setup, we've demonstrated Cribl's capabilities in:
 
-- Centralizing data collection from diverse sources
-- Providing flexibility in data routing and processing
-- Offering scalability through its distributed architecture
+- Centralizing data collection from diverse sources.
+- Providing flexibility in data routing and processing.
+- Offering scalability through its distributed architecture.
 
 ## Looking Ahead: Part 2 - Cribl Destinations
 
-In the next part of this series, we'll explore setting up crucial destinations for our collected logs:
+In the next part of this series, we will explore setting up crucial destinations for our collected logs:
 
 ### 1. AWS S3 Bucket
 
 We'll cover:
 
-- Creating and configuring an S3 bucket for log storage
-- Setting up IAM roles and policies for secure access
-- Configuring Cribl to send data to S3 for long-term retention
+- Creating and configuring an S3 bucket for log storage.
+- Setting up IAM roles and policies for secure access.
+- Configuring Cribl to send data to S3 for long-term retention.
 
 ### 2. Splunk HTTP Event Collector (HEC)
 
 We'll explore:
 
-- Setting up Splunk HEC for real-time log ingestion
-- Configuring Cribl to forward processed logs to Splunk
-- Optimizing data flow between Cribl and Splunk
+- Setting up Splunk HEC for real-time log ingestion.
+- Configuring Cribl to forward processed logs to Splunk.
+- Optimizing data flow between Cribl and Splunk.
 
-By implementing these destinations, we'll complete our data pipeline, enabling both long-term storage in S3 and real-time analysis in Splunk. This setup will provide a comprehensive solution for log management, combining the flexibility of Cribl with the power of cloud storage and advanced analytics.
+By implementing these destinations, we will complete our data pipeline, enabling both long-term storage in S3 and real-time analysis in Splunk. This setup will provide a comprehensive solution for log management, combining the flexibility of Cribl with the power of cloud storage and advanced analytics.
