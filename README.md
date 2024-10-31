@@ -45,3 +45,17 @@ By implementing these destinations, we will complete our data pipeline, enabling
 
 - Additional integrations with security tools.
 - Further fine-tuning for real-world SOC scenarios.
+
+---
+
+## Disclaimer
+
+This project is intended for educational and informational purposes only. The documentation, scripts, and configurations provided here are meant to assist users in understanding and setting up environments involving open-source and proprietary tools such as Cribl, Splunk, Docker, and AWS. This repository is not endorsed by or affiliated with any of these companies.
+
+Please note:
+- This repository does not include proprietary software. Any usage of such software requires the appropriate licenses from the respective vendors.
+- The provided code and configurations are intended to work in isolated or test environments. Use in production environments is at your own risk.
+- The MIT License in this repository applies only to the documentation and code provided here and does not extend to any third-party software or services mentioned.
+
+By using this project, you agree to do so at your own discretion and risk. Please ensure compliance with any applicable terms and conditions of the software vendors mentioned.
+
