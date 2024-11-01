@@ -43,8 +43,9 @@ By implementing these destinations, we will complete our data pipeline, enabling
 
 ## Future Enhancements
 
-- Additional integrations with security tools.
-- Further fine-tuning for real-world SOC scenarios.
+- Integrating Alerts and Notifications
+- Building Dashboards and Visualizations
+- Advanced Data Processing and Enrichment
 
 ---
 
