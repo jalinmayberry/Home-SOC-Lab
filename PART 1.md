@@ -219,7 +219,7 @@ This ensures that your Windows machine can accept inbound pings from the Raspber
 
     ![image 12](https://github.com/user-attachments/assets/453cddab-6aec-46f7-8ef5-b6e1045dcb11)
 
-2. Choose **Add/Update Edge Node > Windows > Update**.
+2. Choose **Add/Update Edge Node > Windows > Add**.
     
     ![image 13](https://github.com/user-attachments/assets/9865e316-0044-4e12-b54c-59de1f6659f1)
     
