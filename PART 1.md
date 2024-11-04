@@ -394,10 +394,11 @@ As we discussed earlier, Cribl Edge functions similarly to a forwarder. We will 
 
    ![image 28](https://github.com/user-attachments/assets/d5a56cd5-c938-4638-8758-233938ccde72)
 
-5. Navigate to **Advanced Settings** and verify that “Use Windows Tools” is toggled on.
-6. Under **Connected Destinations**, choose **Send to Routes**.
-7. Save and Commit & Deploy.
-8. Return to the input:
+5. In the **Fields** tab, set an index value of 'home_soc_winevents' 
+6. Navigate to **Advanced Settings** and verify that “Use Windows Tools” is toggled on.
+7. Under **Connected Destinations**, choose **Send to Routes**.
+8. Save and Commit & Deploy.
+9. Return to the input:
    - Under the **Status** tab, you should see your Windows host and event logs listed in this table.
 
    ![image 30](https://github.com/user-attachments/assets/ba6dbe00-0bb6-44de-a51a-527a3c354b45)
