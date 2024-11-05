@@ -2,6 +2,8 @@
 
 ![image](https://github.com/user-attachments/assets/54c4659a-6754-43f9-9e36-e5b956db6685)
 ![image](https://github.com/user-attachments/assets/cdb44734-c055-4ed8-9d49-9d4979f2ea72)
+![docker-bg](https://github.com/user-attachments/assets/1f9593d1-aac7-4543-982d-83907a45ba2f)
+![AWS](https://github.com/user-attachments/assets/b6c2a54a-d825-48e0-a9ed-16b4157766d6)
 
 Part 2 - Configuring Destinations
 
