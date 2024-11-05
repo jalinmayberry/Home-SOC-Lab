@@ -9,7 +9,7 @@ Part 2 - Configuring Destinations
 
 In this section, we will set up critical destinations for our data pipeline. This ensures that the logs collected in Part 1 are stored long-term and are available for real-time analysis.
 
-We will be utilizing two powerful tools for our destinations:
+We will be using two integrations supported by Cribl for our destination settings:
 
 - **AWS S3**: Provides long-term, secure storage.
 - **Splunk HEC**: Enables real-time data analysis.
@@ -519,7 +519,7 @@ Navigate to **Routing** > **Data Routes** > **Add Route**.
    Note: You might not see syslog data from the Raspberry Pi, as they are not very active, with minimal daemons or containers running. However, you should start seeing some Windows Events at the least (my logs are modified via a pack, so they will appear in raw JSON format).
 
 6. **Generate Test Logs:**  
-   You can initiate `logger test` commands via shell access to populate some test logs for viewing in Splunk from your `home_soc_syslog` index.
+   You can execute `logger test` commands through the terminal on the Raspberry Pi we set up for Syslog to generate some test logs for viewing in Splunk from your `home_soc_syslog` index.
 
 ### Conclusion
 
@@ -527,8 +527,18 @@ What the HEC?! You've successfully set up your Splunk instance to receive data f
 
 ---
 
-### Summary
+## Summary
 
-In Part 2, we configured AWS S3 and Splunk HEC as destinations in our Home SOC Lab. This setup provides a robust data pipeline that combines long-term storage with real-time monitoring capabilities.
+In Part 2, we completed the foundational setup of our Home SOC Lab by configuring essential destinations: AWS S3 for long-term storage and Splunk HEC for real-time log analysis. With this configuration, we now have a robust data pipeline that enables both archival and immediate analysis of our security logs, giving us a complete view of our home environment.
 
-Next, we’ll explore analyzing and visualizing data with Splunk to enhance our SOC setup. Stay tuned for further insights!
+### What We Accomplished:
+- Set up an AWS S3 bucket and IAM policies to securely store logs in the cloud.
+- Configured a Splunk instance on Docker, making it accessible for real-time monitoring and alerting.
+- Created necessary indexes and an HTTP Event Collector (HEC) in Splunk to receive logs from Cribl.
+- Configured Cribl destinations and routes to forward logs to both S3 and Splunk, ensuring both long-term storage and real-time analysis capabilities.
+
+With this setup, our Home SOC Lab is now fully functional and ready to handle core logging and monitoring tasks. However, there are plenty of opportunities to expand its capabilities. In future walkthroughs, we’ll explore ideas like integrating alerting and automated responses, adding more data sources, creating detailed dashboards, and enhancing log parsing for specific use cases.
+
+The lab may be complete in its core form, but these upcoming enhancements will allow us to refine and extend its functionality. Stay tuned for additional guides and walkthroughs to help you take your Home SOC Lab to the next level!
+
+--- 
