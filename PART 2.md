@@ -373,7 +373,7 @@ Navigate to Command Prompt (Windows) or Terminal (Linux).
 - To start the Splunk container, enter:
 
     ```bash
-    docker run -d --name splunk -p 8000:8000 -p 8088:8088 -p 9997:9997 -e SPLUNK_START_ARGS="--accept-license" -e SPLUNK_PASSWORD=<YourSplunkPassword> splunk/splunk
+    docker run -d --name splunk -p 8000:8000 -p 8088:8088 -p 9997:9997 -e SPLUNK_START_ARGS="--accept-license" -e SPLUNK_PASSWORD=<YourSplunkPassword> splunk/splunk:latest
     ```
 
     - **Port 8000**: Splunk Web UI
