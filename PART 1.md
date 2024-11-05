@@ -4,6 +4,8 @@
 
 ![splunk_rainbow](https://github.com/user-attachments/assets/5e0aca6b-8dcd-44db-a68d-41dfae774487)
 
+Part 1 - Initial Deployment and Source Configurations 
+
 ## INTRO
 
 It has been a year since my last blog post. During this time, I focused on deepening my understanding of Splunk and Cribl as I established my role within the SIEM team at CDW. In this write-up, I will provide an overview of the tools we will be using, along with a brief introduction to their functions.
