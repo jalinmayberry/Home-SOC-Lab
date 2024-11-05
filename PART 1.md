@@ -1,8 +1,9 @@
 # Cribl-Splunk-Home-SOC
 
 ![cribl](https://github.com/user-attachments/assets/04984f1c-2060-4838-9b8c-bc255e90a1ee)
-
 ![splunk_rainbow](https://github.com/user-attachments/assets/5e0aca6b-8dcd-44db-a68d-41dfae774487)
+![docker-bg](https://github.com/user-attachments/assets/ee79d21a-1b54-45c8-819f-f156b17d8018)
+![AWS](https://github.com/user-attachments/assets/b33088ed-2c35-43bb-ba86-938386b46ada)
 
 Part 1 - Initial Deployment and Source Configurations 
 
