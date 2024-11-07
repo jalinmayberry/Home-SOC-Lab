@@ -157,7 +157,7 @@ The Worker node will be the central point for collecting our source logs. Ideall
 
 3. I deployed my Worker node using Docker, so feel free to follow along since we installed Docker earlier. The bootstrap script will populate to the right of your configuration tabs.
    
-    1. This script requires some editing. By default, all ports are closed unless specified during the run script.
+    1. This script needs editing. By default, the image will deploy in bridge mode, adding a layer of isolation between the container and the host. This means all ports are closed unless specified during the run script.
         - Use `-p 9000:9000` to open port 9000 for both the container and the host. This port is used for the Cribl UI and for bootstrapping Worker nodes from an on-prem Leader node.
         - More context on ports can be found [here](https://docs.cribl.io/stream/ports/).
         
