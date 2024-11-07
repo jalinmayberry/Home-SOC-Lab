@@ -158,12 +158,12 @@ The Worker node will be the central point for collecting our source logs. Ideall
 3. I deployed my Worker node using Docker, so feel free to follow along since we installed Docker earlier. The bootstrap script will populate to the right of your configuration tabs.
    
     1. This script needs editing. By default, the image will deploy in bridge mode, adding a layer of isolation between the container and the host. This means all ports are closed unless specified during the run script.
-        - Use `-p 9000:9000` to open port 9000 for both the container and the host. This port is used for the Cribl UI and for bootstrapping Worker nodes from an on-prem Leader node.
+        - `-p 9000:9000` for example, will open port 9000 for both the container and the host. This port is used for the Cribl UI and for bootstrapping Worker nodes from an on-prem Leader node.
         - More context on ports can be found [here](https://docs.cribl.io/stream/ports/).
         
         ![image 5](https://github.com/user-attachments/assets/a28bdaec-aa68-40f9-9379-c4fa7b898bd1)
 
-    2. You can open additional necessary ports by adding more `-p <port:port>` arguments in your script, or you can follow my Portainer method. 
+    2. You can open additional ports by following my Portainer method below, or you can return to this step to add more `-p <port:port>` arguments in your initial script.
 
 4. After deploying the script on your Raspberry Pi, you should see your Worker node appear in the list.
 
