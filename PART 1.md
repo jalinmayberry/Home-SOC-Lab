@@ -143,10 +143,10 @@ After collecting the data, we will send it using routes, which direct individual
     3. Add your email address to the license agreement and accept the terms.
 
 ## Configuring Cribl Instance as a Leader
-1. Navigate to Settings > Global > Distributed Settings
-2. Select **Leader** from the dropdow menu
+1. Navigate to Settings > Global > Distributed Settings.
+2. Select **Leader** from the dropdown menu.
 ![image](https://github.com/user-attachments/assets/9122e87b-d3f3-4a2d-a6d5-d50ac2701ff4)
-3. Click Save and this should initiate a restart sequence 
+3. Click Save; this will initiate a restart sequence.
 
 
 ## Installing a Worker Node
